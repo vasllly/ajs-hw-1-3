@@ -2,6 +2,15 @@
 
 var score = [74989, 74990, 84990, 62000, 58480, 61800];
 
+function sDecrease(a, b) {
+  if (a > b)
+      return -1;
+  else if (a < b)
+      return 1;
+  else
+      return 0;
+}
+
 function topScore(array) {
   var top_score = 0;
   array = array || [];
@@ -16,20 +25,21 @@ function topScore(array) {
 }
 
 function topThreeAverage(array) {
-  var top_three = [0, 0, 0];
   var tmp_array = [];
+  var top_three_average = 0;
   array = array || [];
 
   for (var i = 0; i < array.length; i++) {
     tmp_array[i] = array[i];
   }
 
-  for (var i = 0; i < top_three.length; i++) {
-    top_three[i] = topScore(tmp_array);
-    tmp_array.splice(tmp_array.indexOf(top_three[i]), 1)
+  tmp_array.sort(sDecrease);
+  for (var i = 0; i < 3; i++) {
+    top_three_average += tmp_array[i];
   }
-
-  return (top_three[0] + top_three[1] + top_three[2]) / 3;
+  top_three_average /= 3;
+  
+  return top_three_average;
 }
 
 console.log(topThreeAverage(score));
